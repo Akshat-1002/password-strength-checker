@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+
+  <style>
+    :root {
+      --bg: #f3f4f6;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --primary: #2563eb;
+      --success: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Inter, Helvetica, Arial, sans-serif;
+      color: var(--text-primary);
+    }
+
+    /* ===== Top Navbar ===== */
+    .navbar {
+      height: 64px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+
+    .navbar h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .navbar span {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* ===== Page Layout ===== */
+    .container {
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    .page-title {
+      margin-bottom: 24px;
+    }
+
+    .page-title h2 {
+      margin: 0 0 4px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .page-title p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* ===== Cards Grid ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .metric {
+      margin-top: 12px;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* ===== Status Section ===== */
+    .status {
+      margin-top: 32px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .status h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 10px;
+      background: var(--success);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>Password Security Dashboard</h1>
+    <span>Admin</span>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="page-title">
+      <h2>Overview</h2>
+      <p>System security and password quality insights</p>
+    </div>
+
+    <!-- Metrics -->
+    <div class="grid">
+      <div class="card">
+        <h3>Password Strength Engine</h3>
+        <p>Entropy-based evaluation</p>
+        <div class="metric">Active</div>
+      </div>
+
+      <div class="card">
+        <h3>Breach Detection</h3>
+        <p>HIBP k-anonymity check</p>
+        <div class="metric">Enabled</div>
+      </div>
+
+      <div class="card">
+        <h3>Real-time Feedback</h3>
+        <p>Live password analysis</p>
+        <div class="metric">Running</div>
+      </div>
+
+      <div class="card">
+        <h3>Integration Mode</h3>
+        <p>Signup & account forms</p>
+        <div class="metric">Seamless</div>
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="status">
+      <h3>System Status</h3>
+
+      <div class="status-item">
+        <div class="dot"></div>
+        Password strength checker operational
+      </div>
+
+      <div class="status-item">
+        <div class="dot"></div>
+        Smart suggestions enabled
+      </div>
+
+      <div class="status-item">
+        <div class="dot"></div>
+        Password manager recommendations active
+      </div>
+
+      <div class="status-item">
+        <div class="dot"></div>
+        Backend authentication via Flask
+      </div>
+    </div>
+  </div>
+</body>
+</html>

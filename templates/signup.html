@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+
+  <!-- Password Strength Widget CSS -->
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='widget/password-strength.css') }}"
+  />
+
+  <style>
+    /* =====================
+       THEME VARIABLES
+       ===================== */
+    :root {
+      --bg: #f3f4f6;
+      --card-bg: #ffffff;
+      --border: #d1d5db;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --primary: #2563eb;
+      --primary-hover: #1e40af;
+      --error-bg: #fff1f2;
+      --error-text: #b91c1c;
+      --focus-ring: rgba(37, 99, 235, 0.25);
+    }
+
+    html[data-theme="dark"] {
+      --bg: #0f172a;
+      --card-bg: #020617;
+      --border: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --error-bg: #450a0a;
+      --error-text: #fecaca;
+      --focus-ring: rgba(59, 130, 246, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Inter, Helvetica, Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    /* =====================
+       CARD
+       ===================== */
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    p {
+      margin: 0 0 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* =====================
+       FORM
+       ===================== */
+    .field {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 44px 12px 12px;
+      font-size: 15px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-primary);
+    }
+
+    input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 34px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 13px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      border-radius: 6px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--primary-hover);
+    }
+
+    .error {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: var(--error-bg);
+      color: var(--error-text);
+      font-size: 13px;
+      border: 1px solid var(--border);
+    }
+
+    .psw-widget {
+      margin-top: 10px;
+    }
+
+    /* =====================
+       MOBILE POLISH
+       ===================== */
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 24px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+
+      button[type="submit"] {
+        font-size: 16px;
+        padding: 15px;
+      }
+
+      .toggle-password {
+        top: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-card">
+    <div class="top-bar">
+      <h2>Login</h2>
+      <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
+    </div>
+
+    <p>Enter your email and password to continue.</p>
+
+    <form method="POST" action="/login">
+      <div class="field">
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Gmail"
+          required
+        />
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          data-password-strength
+          required
+        />
+        <button type="button" class="toggle-password" onclick="togglePassword()">
+          Show
+        </button>
+      </div>
+
+      <button type="submit">Sign in</button>
+
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+    </form>
+  </div>
+
+  <script src="{{ url_for('static', filename='widget/password-strength.js') }}" defer></script>
+
+  <script>
+    function togglePassword() {
+      const input = document.getElementById("password");
+      const btn = document.querySelector(".toggle-password");
+      if (input.type === "password") {
+        input.type = "text";
+        btn.textContent = "Hide";
+      } else {
+        input.type = "password";
+        btn.textContent = "Show";
+      }
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      document.querySelector(".theme-toggle").textContent =
+        next === "dark" ? "Light" : "Dark";
+    }
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      document.querySelector(".theme-toggle").textContent =
+        savedTheme === "dark" ? "Light" : "Dark";
+    }
+  </script>
+</body>
+</html>
