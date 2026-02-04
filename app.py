@@ -2,9 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-# -------------------------------
-# Password strength check (backend)
-# -------------------------------
+#
 def is_strong_password(password: str) -> bool:
     if len(password) < 8:
         return False
@@ -29,15 +27,14 @@ def login():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    # Backend enforcement
+
     if not is_strong_password(password):
         return render_template(
             "signup.html",
             error="Password is too weak. Use uppercase, lowercase, number and symbol."
         )
 
-    # ✅ Any email allowed
-    # ✅ Password strength enforced
+    
     return redirect(url_for("dashboard"))
 
 

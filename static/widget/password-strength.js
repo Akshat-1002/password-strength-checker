@@ -10,9 +10,7 @@
     return hashArray.map(b => b.toString(16).padStart(2, "0")).join("").toUpperCase();
   }
 
-  /* ===============================
-     ENTROPY / STRENGTH
-     =============================== */
+ 
   function calculateEntropy(password) {
     let charset = 0;
     if (/[a-z]/.test(password)) charset += 26;
@@ -23,9 +21,7 @@
     return Math.round(password.length * Math.log2(charset));
   }
 
-  /* ===============================
-     BREACH CHECK (HIBP)
-     =============================== */
+  
   async function checkBreach(password) {
     const hash = await sha1(password);
     const prefix = hash.slice(0, 5);
@@ -38,9 +34,7 @@
     return text.includes(suffix);
   }
 
-  /* ===============================
-     WIDGET INIT (EMBEDDING)
-     =============================== */
+ 
   function init(input) {
 
     const widget = document.createElement("div");
@@ -75,7 +69,7 @@
         return;
       }
 
-      /* ===== REAL-TIME STRENGTH ===== */
+     
       const entropy = calculateEntropy(password);
       entropyText.textContent = `${entropy} bits`;
       fill.style.width = Math.min((entropy / 80) * 100, 100) + "%";
@@ -95,7 +89,7 @@
         strengthLevel = "strong";
       }
 
-      /* ===== SMART SUGGESTIONS ===== */
+     
       if (password.length < 12)
         suggestions.innerHTML += `<li>Add ${12 - password.length} more characters</li>`;
       if (!/[A-Z]/.test(password))
@@ -105,14 +99,14 @@
       if (!/[^A-Za-z0-9]/.test(password))
         suggestions.innerHTML += `<li>Add a special symbol</li>`;
 
-      /* ===== BREACH CHECK (DEBOUNCED) ===== */
+     
       clearTimeout(breachTimeout);
       lastPassword = password;
 
       breachTimeout = setTimeout(async () => {
         const breached = await checkBreach(password);
 
-        // Ensure password hasn't changed while waiting
+      
         if (password !== lastPassword) return;
 
         if (breached) {
@@ -122,7 +116,7 @@
             </li>
           `;
         } else if (strengthLevel === "strong") {
-          /* ===== PASSWORD MANAGER SUGGESTION ===== */
+         
           suggestions.innerHTML += `
             <li style="color:#065f46">
               💡 Consider saving this password in a password manager
@@ -135,9 +129,7 @@
     });
   }
 
-  /* ===============================
-     AUTO-ATTACH (EASY EMBEDDING)
-     =============================== */
+  
   document
     .querySelectorAll("[data-password-strength]")
     .forEach(init);
